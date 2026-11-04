@@ -21,7 +21,7 @@ export default function DocumentUploadPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [result, setResult] = useState<UploadResult>(null);
 
-  // 업로드 권한 부서는 내가 소속된 그룹 중에서만 선택 가능 (백엔드도 동일하게 검증)
+  // 업로드 공개 그룹은 내가 소속된 그룹 중에서만 선택 가능 (백엔드도 동일하게 검증)
   useEffect(() => {
     memberApi.getMyGroups()
       .then((myGroups) => setGroups(myGroups ?? []))
@@ -75,7 +75,7 @@ export default function DocumentUploadPage() {
     <div className="min-h-screen bg-slate-50 p-6 md:p-8">
       <PageHeader
         title="문서 업로드"
-        description="문서를 올리고 열람할 부서를 지정하세요. 지정한 부서의 사용자만 이 문서를 검색할 수 있습니다."
+        description="문서를 올리고 열람할 그룹을 지정하세요. 지정한 그룹의 멤버만 이 문서를 검색할 수 있습니다."
       />
 
       <form onSubmit={handleSubmit} className="max-w-2xl bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
@@ -112,13 +112,13 @@ export default function DocumentUploadPage() {
         </div>
 
         <div>
-          <label className="block text-sm font-semibold text-slate-700 mb-1">열람 가능 부서</label>
-          <p className="text-xs text-slate-400 mb-3">내가 소속된 부서 중에서 선택할 수 있습니다.</p>
+          <label className="block text-sm font-semibold text-slate-700 mb-1">열람 가능 그룹</label>
+          <p className="text-xs text-slate-400 mb-3">내가 속한 그룹 중에서 선택할 수 있습니다.</p>
           {isGroupsLoading ? (
-            <p className="text-xs text-slate-400">부서 목록을 불러오는 중...</p>
+            <p className="text-xs text-slate-400">그룹 목록을 불러오는 중...</p>
           ) : groups.length === 0 ? (
             <p className="text-xs text-amber-700 bg-amber-50 border border-amber-200 rounded-xl p-3">
-              소속된 부서가 없어 문서를 올릴 수 없습니다. 관리자에게 부서 배정을 요청해 주세요.
+              속한 그룹이 없어 문서를 올릴 수 없습니다. <Link href="/groups" className="underline">그룹 관리</Link>에서 그룹을 만들거나, 그룹 OWNER에게 추가를 요청해 주세요.
             </p>
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">

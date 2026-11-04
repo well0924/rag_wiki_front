@@ -80,7 +80,7 @@ function MainDashboard() {
                                 </span>
                             )}
                         </div>
-                        <p className="text-xs text-slate-400">부서 권한 기반 문서 검색 어시스턴트</p>
+                        <p className="text-xs text-slate-400">그룹 권한 기반 문서 검색 어시스턴트</p>
                     </div>
                 </div>
 
@@ -113,12 +113,12 @@ function MainDashboard() {
                         {user ? `${user.userName || user.username}님, ` : ''}무엇을 찾고 계신가요?
                     </h2>
                     <p className="text-xs md:text-sm text-slate-400 mt-1 max-w-2xl leading-relaxed">
-                        사내 문서를 질문으로 검색하세요. 내 부서에 공개된 문서만 답변에 사용되고, 다른 부서의 비공개 문서는 검색되지 않습니다.
+                        문서를 질문으로 검색하세요. 내가 속한 그룹에 공개된 문서만 답변에 사용되고, 다른 그룹의 문서는 검색되지 않습니다.
                     </p>
                 </div>
 
                 {/* 메뉴 */}
-                <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
                     <Link href="/chat" className="p-8 bg-white border border-slate-200 hover:border-blue-500 rounded-2xl transition shadow-sm hover:shadow-md group space-y-3 text-left block">
                         <div className="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-2xl group-hover:scale-110 transition">
                             💬
@@ -138,7 +138,7 @@ function MainDashboard() {
                         <div>
                             <h4 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition">문서 업로드</h4>
                             <p className="text-xs text-slate-500 leading-relaxed mt-1">
-                                문서를 올리고 열람할 부서를 지정합니다. 업로드한 문서는 잠시 후 검색에 반영됩니다.
+                                문서를 올리고 열람할 그룹을 지정합니다. 업로드한 문서는 잠시 후 검색에 반영됩니다.
                             </p>
                         </div>
                     </Link>
@@ -151,6 +151,18 @@ function MainDashboard() {
                             <h4 className="text-base font-bold text-slate-900 group-hover:text-indigo-600 transition">문서 목록</h4>
                             <p className="text-xs text-slate-500 leading-relaxed mt-1">
                                 내가 열람할 수 있는 문서와 검색 반영 상태를 확인합니다.
+                            </p>
+                        </div>
+                    </Link>
+
+                    <Link href="/groups" className="p-8 bg-white border border-slate-200 hover:border-blue-500 rounded-2xl transition shadow-sm hover:shadow-md group space-y-3 text-left block">
+                        <div className="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center text-2xl group-hover:scale-110 transition">
+                            👥
+                        </div>
+                        <div>
+                            <h4 className="text-base font-bold text-slate-900 group-hover:text-amber-600 transition">그룹 관리</h4>
+                            <p className="text-xs text-slate-500 leading-relaxed mt-1">
+                                팀, 스터디, 개인 공간 그룹을 만들고 이메일로 멤버를 추가합니다.
                             </p>
                         </div>
                     </Link>

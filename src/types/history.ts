@@ -1,4 +1,15 @@
-// 1. 관리자 상단 대시보드 요약 통계 DTO
+// 관리자 검색 품질 지표 (GET /api/v1/search-histories/admin/stats)
+// 비율은 👍/👎를 남긴 기록만 분모로 계산하며, 피드백이 없으면 null
+export interface SearchQualityStats {
+  totalSearches: number;
+  positiveCount: number;
+  negativeCount: number;
+  feedbackCount: number;
+  positiveRate: number | null;
+  negativeRate: number | null;
+}
+
+// (미사용) 예전 대시보드 시안용 DTO. component/admin/MetricCardsRow.tsx에서만 참조
 export interface SearchQualityMetrics {
   totalQueryCount: number;
   positiveFeedbackRate: number; // 👍 비율 (ex: 91.4)

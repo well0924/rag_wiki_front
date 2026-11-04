@@ -1,6 +1,4 @@
-'line spacing: 1.25';
-
-import { LoginCommand, MemberModel, TokenResponse, UserCreateCommand, UserGroupModel } from '@/types/member';
+import { GroupMember, LoginCommand, MemberModel, TokenResponse, UserCreateCommand, UserGroupModel } from '@/types/member';
 import { apiClient } from './apiClient';
 
 export const memberApi = {
@@ -39,11 +37,31 @@ export const memberApi = {
     return apiClient.get<UserGroupModel[]>('/api/v1/groups/me');
   },
 
-  // 새 워크스페이스 그룹 개설
+  // 새 그룹 만들기 (만든 사람이 OWNER)
   createGroup(groupName: string, description?: string): Promise<UserGroupModel> {
     const body: Record<string, unknown> = { groupName };
     if (description) body.description = description;
     return apiClient.post<UserGroupModel>('/api/v1/groups', body);
+  },
+
+  // 그룹 멤버 목록 (그룹 소속이면 누구나)
+  getGroupMembers(groupId: number): Promise<GroupMember[]> {
+    return apiClient.get<GroupMember[]>(`/api/v1/groups/${groupId}/members`);
+  },
+
+  // 이메일로 멤버 추가 (OWNER만, 가입된 회원을 바로 MEMBER로 추가)
+  addGroupMember(groupId: number, email: string): Promise<GroupMember> {
+    return apiClient.post<GroupMember>(`/api/v1/groups/${groupId}/members`, { email });
+  },
+
+  // 멤버 제거 (OWNER만, OWNER 자신은 제거 불가)
+  removeGroupMember(groupId: number, memberId: number): Promise<void> {
+    return apiClient.delete<void>(`/api/v1/groups/${groupId}/members/${memberId}`);
+  },
+
+  // 그룹 삭제 (OWNER만)
+  deleteGroup(groupId: number): Promise<void> {
+    return apiClient.delete<void>(`/api/v1/groups/${groupId}`);
   },
 
   // 회원 단일 조회
