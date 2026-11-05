@@ -175,7 +175,7 @@ export default function AdminHistoryPage() {
                             {log.answer || <span className="text-slate-400 italic">답변 없음</span>}
                           </td>
                           <td className="p-4 text-center">
-                            <span className="px-2.5 py-1 rounded-md text-[10px] font-bold border bg-red-50 text-red-700 border-red-200">
+                            <span className="inline-block whitespace-nowrap px-2.5 py-1 rounded-md text-[10px] font-bold border bg-red-50 text-red-700 border-red-200">
                               👎 비추천
                             </span>
                           </td>

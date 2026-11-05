@@ -45,9 +45,9 @@ export default function SignupPage() {
         
         {/* 타이틀 헤더 */}
         <div className="text-center space-y-1.5">
-          <h1 className="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">👤 사내 보안 계정 생성</h1>
+          <h1 className="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">👤 회원가입</h1>
           <p className="text-xs md:text-sm text-slate-500">
-            사내 위키 탐색을 위한 사용자 정보 및 소속 그룹 권한을 설정합니다.
+            가입한 뒤 그룹을 만들거나, 그룹 OWNER에게 이메일로 추가를 요청하세요.
           </p>
         </div>
 
@@ -73,7 +73,7 @@ export default function SignupPage() {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1.5">사내 이메일 계정</label>
+            <label className="block text-xs font-semibold text-slate-700 mb-1.5">이메일</label>
             <input
               type="email"
               value={email}
@@ -101,7 +101,7 @@ export default function SignupPage() {
             disabled={isLoading || !email.trim() || !name.trim() || !password.trim()}
             className="w-full py-3 text-sm font-bold text-white bg-blue-600 rounded-xl hover:bg-blue-700 disabled:opacity-40 disabled:hover:bg-blue-600 transition shadow-sm"
           >
-            {isLoading ? 'RDB 사용자 스키마 영속화 중...' : '부서 권한 맵핑 및 계정 생성'}
+            {isLoading ? '가입 중...' : '계정 만들기'}
           </button>
         </form>
 

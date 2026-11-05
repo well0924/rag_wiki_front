@@ -73,7 +73,7 @@ function MainDashboard() {
                     <span className="text-2xl">🏢</span>
                     <div>
                         <div className="flex items-center gap-2">
-                            <h1 className="text-lg font-extrabold tracking-tight text-slate-900">사내 위키 검색</h1>
+                            <h1 className="text-lg font-extrabold tracking-tight text-slate-900">RAG 위키 검색</h1>
                             {user && (
                                 <span className="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-md font-medium">
                                     {user.userName || user.username} 님 로그인 중
@@ -126,7 +126,7 @@ function MainDashboard() {
                         <div>
                             <h4 className="text-base font-bold text-slate-900 group-hover:text-blue-600 transition">위키 검색</h4>
                             <p className="text-xs text-slate-500 leading-relaxed mt-1">
-                                궁금한 내용을 질문하면 관련 사내 문서를 찾아 답변합니다.
+                                궁금한 내용을 질문하면 내 그룹의 문서를 찾아 답변합니다.
                             </p>
                         </div>
                     </Link>

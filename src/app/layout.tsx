@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "사내 위키 검색",
-  description: "부서 권한 기반 사내 문서 RAG 검색",
+  title: "RAG 위키 검색",
+  description: "그룹 권한 기반 문서 RAG 검색",
 };
 
 export default function RootLayout({

@@ -49,9 +49,9 @@ function LoginForm() {
         
         {/* 타이틀 헤더 */}
         <div className="text-center space-y-1.5">
-          <h1 className="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">🏢 사내 지식 위키 로그인</h1>
+          <h1 className="text-xl md:text-2xl font-bold text-slate-900 tracking-tight">🏢 RAG 위키 로그인</h1>
           <p className="text-xs md:text-sm text-slate-500">
-            인증 완료 후 부서별 권한에 맞는 RAG 검색 라우트를 활성화합니다.
+            로그인하면 내가 속한 그룹에 공개된 문서를 검색할 수 있습니다.
           </p>
         </div>
 
@@ -64,7 +64,7 @@ function LoginForm() {
         {/* 메인 로그인 폼 */}
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1.5">사내 이메일 계정</label>
+            <label className="block text-xs font-semibold text-slate-700 mb-1.5">이메일</label>
             <input
               type="email"
               value={email}
@@ -116,7 +116,7 @@ function LoginForm() {
         <p className="text-center text-xs text-slate-500">
           아직 계정이 없으신가요?{' '}
           <Link href="/signup" className="text-blue-600 font-semibold hover:underline">
-            여기서 부서 권한 등록하기
+            회원가입
           </Link>
         </p>
 

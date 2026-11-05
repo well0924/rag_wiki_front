@@ -68,7 +68,7 @@ export default function DocumentListPage() {
     <div className="min-h-screen bg-slate-50 p-6 md:p-8">
       <PageHeader
         title="문서 목록"
-        description="내 부서에 공개된 문서만 보입니다. '검색 가능' 상태가 된 문서부터 검색 답변에 사용됩니다."
+        description="내가 속한 그룹에 공개된 문서만 보입니다. '검색 가능' 상태가 된 문서부터 검색 답변에 사용됩니다."
       />
 
       <div className="flex items-center justify-between mb-4">

@@ -23,7 +23,7 @@ export default function ChatWindow() {
     {
       id: 'welcome',
       role: 'assistant',
-      content: '안녕하세요! 사내 위키 어시스턴트입니다. 내 부서에 공개된 문서를 바탕으로 답변해 드립니다. 무엇이든 물어보세요.',
+      content: '안녕하세요! 위키 어시스턴트입니다. 내가 속한 그룹에 공개된 문서를 바탕으로 답변해 드립니다. 무엇이든 물어보세요.',
       timestamp: '방금 전',
     },
   ]);
@@ -89,7 +89,7 @@ export default function ChatWindow() {
       {/* 챗 상단 바 */}
       <div className="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center gap-2.5">
         <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-        <h2 className="font-bold text-slate-800 text-sm md:text-base">사내 문서 검색</h2>
+        <h2 className="font-bold text-slate-800 text-sm md:text-base">문서 검색</h2>
       </div>
 
       {/* 메시지 영역 */}
