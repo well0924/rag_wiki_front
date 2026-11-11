@@ -97,14 +97,16 @@ export default function GroupsPage() {
 
   const handleAddMember = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (selectedGroupId === null || !email.trim() || isAdding) return;
+    if (selectedGroupId === null || !selectedGroup || !email.trim() || isAdding) return;
+    // 응답 전에 선택이 바뀌어도 안내 문구는 요청을 보낸 그룹 이름으로 표시
+    const groupName = selectedGroup.groupName;
     setIsAdding(true);
     setNotice(null);
     try {
       const added = await memberApi.addGroupMember(selectedGroupId, email.trim());
       setMembers((prev) => [...prev, added]);
       setEmail('');
-      setNotice({ type: 'success', message: `${added.email} 님을 추가했습니다. 다음 요청부터 이 그룹 문서를 검색할 수 있습니다.` });
+      setNotice({ type: 'success', message: `${added.email} 님을 "${groupName}" 그룹에 추가했습니다. 다음 요청부터 이 그룹 문서를 검색할 수 있습니다.` });
     } catch (err) {
       setNotice({ type: 'error', message: errorMessage(err, '멤버를 추가하지 못했습니다.') });
     } finally {
@@ -113,13 +115,14 @@ export default function GroupsPage() {
   };
 
   const handleRemoveMember = async (member: GroupMember) => {
-    if (selectedGroupId === null) return;
-    if (!confirm(`${member.email} 님을 그룹에서 제거할까요? 이 그룹 문서를 더 이상 검색할 수 없게 됩니다.`)) return;
+    if (selectedGroupId === null || !selectedGroup) return;
+    const groupName = selectedGroup.groupName;
+    if (!confirm(`${member.email} 님을 "${groupName}" 그룹에서 제거할까요? 이 그룹 문서를 더 이상 검색할 수 없게 됩니다.`)) return;
     setNotice(null);
     try {
       await memberApi.removeGroupMember(selectedGroupId, member.memberId);
       setMembers((prev) => prev.filter((m) => m.memberId !== member.memberId));
-      setNotice({ type: 'success', message: `${member.email} 님을 제거했습니다.` });
+      setNotice({ type: 'success', message: `${member.email} 님을 "${groupName}" 그룹에서 제거했습니다.` });
     } catch (err) {
       setNotice({ type: 'error', message: errorMessage(err, '멤버를 제거하지 못했습니다.') });
     }
@@ -241,15 +244,16 @@ export default function GroupsPage() {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="추가할 회원의 이메일"
+                    placeholder={`"${selectedGroup.groupName}"에 추가할 회원의 이메일`}
                     className="grow min-w-0 px-3 py-2 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition"
                   />
                   <button
                     type="submit"
                     disabled={!email.trim() || isAdding}
-                    className="px-4 py-2 text-xs font-bold text-white bg-blue-600 rounded-xl hover:bg-blue-700 disabled:opacity-40 transition shrink-0"
+                    title={`${selectedGroup.groupName}에 추가`}
+                    className="max-w-[12rem] truncate px-4 py-2 text-xs font-bold text-white bg-blue-600 rounded-xl hover:bg-blue-700 disabled:opacity-40 transition shrink-0"
                   >
-                    {isAdding ? '추가 중...' : '멤버 추가'}
+                    {isAdding ? '추가 중...' : `${selectedGroup.groupName}에 추가`}
                   </button>
                 </form>
               )}
