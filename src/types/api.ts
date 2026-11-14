@@ -31,7 +31,7 @@ export interface SearchHistoryModel {
 
 export interface UploadSuccessResponse {
   success: boolean;
-  documentId: number[];
+  documentId: number; // 요청 1건 = 파일 1개
   message: string;
 }
 
