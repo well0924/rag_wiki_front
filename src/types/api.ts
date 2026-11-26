@@ -47,4 +47,5 @@ export interface SearchSource {
   documentId: number;
   title: string;
   similarity: number;          // 질문과의 코사인 유사도 (0~1)
+  groupNames?: string[];       // 이 문서가 공개된 그룹 중 내가 속한 그룹 이름 (이전 서버 응답에는 없을 수 있음)
 }

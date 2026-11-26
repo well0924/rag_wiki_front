@@ -160,11 +160,16 @@ export default function DocumentUploadPage() {
     }
 
     setIsSubmitting(false);
+    // 업로드 후 그룹 선택이 초기화되므로, 어느 그룹에 공개했는지 메시지에 남김
+    const groupLabel = groups
+      .filter((group) => selectedGroups.includes(group.id))
+      .map((group) => group.groupName)
+      .join(', ');
     if (failCount === 0) {
-      setNotice({ type: 'success', message: `${successCount}개를 업로드했습니다. 검색에 반영되기까지 잠시 걸릴 수 있어요.` });
+      setNotice({ type: 'success', message: `${successCount}개를 ${groupLabel}에 공개했습니다. 검색에 반영되기까지 잠시 걸릴 수 있어요.` });
       setSelectedGroups([]);
     } else {
-      setNotice({ type: 'error', message: `${successCount}개 성공, ${failCount}개 실패했습니다. 실패한 파일은 사유를 확인한 뒤 다시 업로드할 수 있습니다.` });
+      setNotice({ type: 'error', message: `${groupLabel}에 ${successCount}개 성공, ${failCount}개 실패했습니다. 실패한 파일은 사유를 확인한 뒤 다시 업로드할 수 있습니다.` });
     }
   };
 

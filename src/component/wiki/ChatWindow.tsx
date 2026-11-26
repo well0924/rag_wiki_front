@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { ApiError } from '@/api/apiClient';
+import { memberApi } from '@/api/memberApi';
 import { searchApi } from '@/api/searchApi';
 import { SearchSource } from '@/types/api';
 
@@ -29,7 +30,19 @@ export default function ChatWindow() {
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [userName, setUserName] = useState<string | null>(null);
+  const [groupNames, setGroupNames] = useState<string[]>([]);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  // 상단 바에 표시할 내 이름과 소속 그룹 (실패해도 검색에는 영향 없음)
+  useEffect(() => {
+    memberApi.getMe()
+      .then((me) => setUserName(me.userName || me.username))
+      .catch(() => setUserName(null));
+    memberApi.getMyGroups()
+      .then((groups) => setGroupNames((groups ?? []).map((group) => group.groupName)))
+      .catch(() => setGroupNames([]));
+  }, []);
 
   // 새 메시지가 추가될 때마다 스크롤을 맨 아래로 이동
   useEffect(() => {
@@ -86,10 +99,15 @@ export default function ChatWindow() {
 
   return (
     <div className="flex flex-col h-[calc(100vh-12rem)] bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-      {/* 챗 상단 바 */}
-      <div className="px-6 py-4 bg-slate-50 border-b border-slate-200 flex items-center gap-2.5">
+      {/* 챗 상단 바: 누가 어떤 그룹 권한으로 검색하는지 표시 */}
+      <div className="px-6 py-4 bg-slate-50 border-b border-slate-200 flex flex-wrap items-center gap-2.5">
         <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
         <h2 className="font-bold text-slate-800 text-sm md:text-base">문서 검색</h2>
+        {userName && (
+          <span className="text-[11px] bg-white text-slate-600 border border-slate-200 px-2 py-0.5 rounded-md font-medium">
+            {userName} 님 · {groupNames.length > 0 ? groupNames.join(', ') : '소속 그룹 없음'}
+          </span>
+        )}
       </div>
 
       {/* 메시지 영역 */}
@@ -118,6 +136,9 @@ export default function ChatWindow() {
                       title={`질문과의 유사도 ${Math.round(source.similarity * 100)}%`}
                     >
                       [{i + 1}] {source.title}
+                      {source.groupNames && source.groupNames.length > 0 && (
+                        <span className="text-slate-400"> · {source.groupNames.join(', ')}</span>
+                      )}
                     </span>
                   ))}
                 </div>
